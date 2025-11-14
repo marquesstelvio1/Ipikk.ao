@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSelector from './LanguageSelector';
 
 interface CourseArea {
   name: string;
@@ -36,6 +38,7 @@ const courseAreas: CourseArea[] = [
 ];
 
 export default function Navigation() {
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [hoveredArea, setHoveredArea] = useState<string | null>(null);
@@ -68,16 +71,18 @@ export default function Navigation() {
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center gap-2">
-            <div className="text-2xl font-bold text-primary" data-testid="logo-text">IPIKK</div>
-          </div>
+          <a href="/" className="flex items-center gap-2">
+            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center" data-testid="logo-container">
+              <span className="text-xl font-bold text-primary">IP</span>
+            </div>
+          </a>
 
           <div className="hidden lg:flex items-center gap-6">
             <a href="/" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-inicio">
-              Início
+              {t('nav.home')}
             </a>
             <a href="/sobre" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-sobre">
-              Sobre
+              {t('nav.about')}
             </a>
             
             <div 
@@ -93,7 +98,7 @@ export default function Navigation() {
                 className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md transition-colors"
                 data-testid="button-cursos"
               >
-                Cursos
+                {t('nav.courses')}
                 <ChevronDown className={`w-4 h-4 transition-transform ${coursesOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -150,17 +155,18 @@ export default function Navigation() {
             </div>
 
             <a href="#admissoes" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-admissoes">
-              Admissões
+              {t('nav.admissions')}
             </a>
             <a href="#noticias" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-noticias">
-              Notícias
+              {t('nav.news')}
             </a>
             <a href="#contato" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-contato">
-              Contato
+              {t('nav.contact')}
             </a>
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
+            <LanguageSelector />
             <Button
               size="icon"
               variant="ghost"
@@ -171,11 +177,12 @@ export default function Navigation() {
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
             <Button data-testid="button-inscreva-se">
-              Inscreva-se
+              {t('nav.enroll')}
             </Button>
           </div>
 
           <div className="lg:hidden flex items-center gap-2">
+            <LanguageSelector />
             <Button
               size="icon"
               variant="ghost"
@@ -206,10 +213,10 @@ export default function Navigation() {
           >
             <div className="px-4 py-4 space-y-2">
               <a href="/" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-inicio-mobile">
-                Início
+                {t('nav.home')}
               </a>
               <a href="/sobre" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-sobre-mobile">
-                Sobre
+                {t('nav.about')}
               </a>
               
               <div>
@@ -218,7 +225,7 @@ export default function Navigation() {
                   className="w-full flex items-center justify-between px-3 py-2 rounded-md hover-elevate text-foreground"
                   data-testid="button-cursos-mobile"
                 >
-                  Cursos
+                  {t('nav.courses')}
                   <ChevronDown className={`w-4 h-4 transition-transform ${mobileCoursesOpen ? 'rotate-180' : ''}`} />
                 </button>
                 
@@ -270,18 +277,18 @@ export default function Navigation() {
               </div>
 
               <a href="#admissoes" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-admissoes-mobile">
-                Admissões
+                {t('nav.admissions')}
               </a>
               <a href="#noticias" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-noticias-mobile">
-                Notícias
+                {t('nav.news')}
               </a>
               <a href="#contato" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-contato-mobile">
-                Contato
+                {t('nav.contact')}
               </a>
               
               <div className="pt-2">
                 <Button className="w-full" data-testid="button-inscreva-se-mobile">
-                  Inscreva-se
+                  {t('nav.enroll')}
                 </Button>
               </div>
             </div>
