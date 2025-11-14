@@ -1,44 +1,92 @@
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Laptop, Zap, Wrench, Building2, Calculator, Users2 } from 'lucide-react';
+import { Server, Monitor, Zap, Building2, Snowflake, Calculator, Compass, Hammer, Lightbulb, Car, Ruler, Briefcase } from 'lucide-react';
 
 const courses = [
   {
-    icon: Laptop,
+    icon: Server,
     title: 'Gestão de Sistemas Informáticos',
     description: 'Formação avançada em gestão e administração de sistemas de informação.',
-    color: 'text-blue-500'
+    color: 'text-blue-500',
+    bgColor: 'bg-blue-500/10'
   },
   {
-    icon: Laptop,
+    icon: Monitor,
     title: 'Técnico de Informática',
     description: 'Curso técnico completo em manutenção e reparação de equipamentos informáticos.',
-    color: 'text-cyan-500'
+    color: 'text-cyan-500',
+    bgColor: 'bg-cyan-500/10'
   },
   {
     icon: Zap,
     title: 'Energias e Instalações Elétricas',
     description: 'Formação em instalação, manutenção e reparação de sistemas elétricos.',
-    color: 'text-yellow-500'
+    color: 'text-yellow-500',
+    bgColor: 'bg-yellow-500/10'
   },
   {
     icon: Building2,
     title: 'Técnico de Obras de Construção Civil',
     description: 'Preparação para trabalhar em projetos de construção e obras civis.',
-    color: 'text-orange-500'
+    color: 'text-orange-500',
+    bgColor: 'bg-orange-500/10'
   },
   {
-    icon: Wrench,
+    icon: Snowflake,
     title: 'Frio e Climatização',
     description: 'Especialização em sistemas de refrigeração e ar condicionado.',
-    color: 'text-teal-500'
+    color: 'text-teal-500',
+    bgColor: 'bg-teal-500/10'
   },
   {
     icon: Calculator,
     title: 'Contabilidade',
     description: 'Formação em contabilidade empresarial e gestão financeira.',
-    color: 'text-green-500'
+    color: 'text-green-500',
+    bgColor: 'bg-green-500/10'
+  },
+  {
+    icon: Compass,
+    title: 'Desenhador Projectista',
+    description: 'Formação em desenho técnico e elaboração de projetos de engenharia.',
+    color: 'text-purple-500',
+    bgColor: 'bg-purple-500/10'
+  },
+  {
+    icon: Hammer,
+    title: 'Técnico em Tecnologias de Móveis',
+    description: 'Especialização em design, fabrico e acabamento de mobiliário.',
+    color: 'text-amber-500',
+    bgColor: 'bg-amber-500/10'
+  },
+  {
+    icon: Lightbulb,
+    title: 'Eletrónica Industrial',
+    description: 'Formação em sistemas eletrónicos aplicados à indústria.',
+    color: 'text-indigo-500',
+    bgColor: 'bg-indigo-500/10'
+  },
+  {
+    icon: Car,
+    title: 'Mecânica Automóvel',
+    description: 'Curso completo em manutenção e reparação de veículos automóveis.',
+    color: 'text-red-500',
+    bgColor: 'bg-red-500/10'
+  },
+  {
+    icon: Ruler,
+    title: 'Topografia',
+    description: 'Formação em levantamento topográfico e geodésico de terrenos.',
+    color: 'text-lime-500',
+    bgColor: 'bg-lime-500/10'
+  },
+  {
+    icon: Briefcase,
+    title: 'Gestão de Empresas',
+    description: 'Preparação para administração e gestão estratégica empresarial.',
+    color: 'text-rose-500',
+    bgColor: 'bg-rose-500/10'
   }
 ];
 
@@ -68,11 +116,13 @@ export default function CoursesSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
             >
               <Card className="h-full hover-elevate transition-all" data-testid={`card-course-${index}`}>
                 <CardHeader>
-                  <course.icon className={`w-12 h-12 ${course.color} mb-3`} />
+                  <div className={`w-14 h-14 ${course.bgColor} rounded-xl flex items-center justify-center mb-3`}>
+                    <course.icon className={`w-7 h-7 ${course.color}`} />
+                  </div>
                   <CardTitle className="text-xl" data-testid={`text-course-title-${index}`}>{course.title}</CardTitle>
                 </CardHeader>
                 <CardContent>

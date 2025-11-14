@@ -73,10 +73,10 @@ export default function Navigation() {
           </div>
 
           <div className="hidden lg:flex items-center gap-6">
-            <a href="#inicio" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-inicio">
+            <a href="/" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-inicio">
               Início
             </a>
-            <a href="#sobre" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-sobre">
+            <a href="/sobre" className="text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-sobre">
               Sobre
             </a>
             
@@ -205,10 +205,10 @@ export default function Navigation() {
             className="lg:hidden border-t border-border bg-background"
           >
             <div className="px-4 py-4 space-y-2">
-              <a href="#inicio" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-inicio-mobile">
+              <a href="/" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-inicio-mobile">
                 Início
               </a>
-              <a href="#sobre" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-sobre-mobile">
+              <a href="/sobre" className="block px-3 py-2 rounded-md hover-elevate text-foreground" data-testid="link-sobre-mobile">
                 Sobre
               </a>
               

@@ -31,10 +31,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold text-foreground mb-4" data-testid="text-footer-links-title">Links Rápidos</h3>
             <ul className="space-y-2">
-              <li><a href="#sobre" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-sobre">Sobre Nós</a></li>
-              <li><a href="#cursos" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-cursos">Cursos</a></li>
-              <li><a href="#admissoes" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-admissoes">Admissões</a></li>
-              <li><a href="#noticias" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-noticias">Notícias</a></li>
+              <li><a href="/sobre" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-sobre">Sobre Nós</a></li>
+              <li><a href="/#cursos" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-cursos">Cursos</a></li>
+              <li><a href="/#admissoes" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-admissoes">Admissões</a></li>
+              <li><a href="/#noticias" className="text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md inline-block" data-testid="link-footer-noticias">Notícias</a></li>
             </ul>
           </div>
 
