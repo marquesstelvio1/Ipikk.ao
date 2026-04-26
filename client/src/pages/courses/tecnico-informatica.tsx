@@ -1,161 +1,152 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import { motion } from 'framer-motion';
-import { Monitor, CheckCircle2, Clock, Users, Award } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { useLanguage } from "@/contexts/LanguageContext";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { Link } from "wouter";
+import { ArrowLeft, CheckCircle2, BookOpen, Monitor, Wrench, Cpu } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { useCourseColor } from "@/hooks/useCourseColor";
 
 export default function TecnicoInformatica() {
-  const modules = [
-    'Arquitetura de Computadores',
-    'Montagem e Manutenção de PCs',
-    'Sistemas Operativos',
-    'Redes de Computadores',
-    'Programação Básica',
-    'Suporte Técnico e Help Desk'
-  ];
+  const { t } = useLanguage();
+  useCourseColor('tecnico-informatica');
 
-  const skills = [
-    'Diagnóstico e reparação de hardware',
-    'Instalação de sistemas operativos',
-    'Configuração de redes locais',
-    'Manutenção preventiva e corretiva',
-    'Atendimento ao cliente',
-    'Resolução de problemas técnicos'
-  ];
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navigation />
-      
-      <section className="py-20 bg-gradient-to-br from-cyan-500/10 via-background to-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <div className="w-20 h-20 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Monitor className="w-10 h-10 text-cyan-500" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Técnico de Informática
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Curso técnico completo em manutenção e reparação de equipamentos informáticos.
-            </p>
-          </motion.div>
+      <main className="flex-grow">
+      {/* Hero Section */}
+      <div ref={ref} className="relative py-20 text-primary-foreground overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.img
+            style={{ y }}
+            src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=1920&h=600&fit=crop&q=80"
+            alt={t('courses.ti.title')}
+            className="absolute -top-[10%] left-0 w-full h-[120%] object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <Link href="/cursos">
+            <a className="inline-flex items-center text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-colors">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              {t('courses.back')}
+            </a>
+          </Link>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('courses.ti.title')}</h1>
+          <p className="text-xl md:text-2xl opacity-90 max-w-2xl">
+            {t('courses.ti.desc')}
+          </p>
+        </div>
+      </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-12">
-            <Card>
-              <CardHeader>
-                <Clock className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Duração</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">3 anos letivos</p>
-              </CardContent>
-            </Card>
+      {/* Content */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Main Info */}
+          <div className="lg:col-span-2 space-y-12">
+            
+            {/* About */}
+            <section>
+              <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center">
+                <BookOpen className="mr-3 h-6 w-6 text-primary" />
+                {t('courses.about')}
+              </h2>
+              <div className="prose prose-lg text-muted-foreground">
+                <p>{t('courses.ti.aboutText1')}</p>
+                <p className="mt-4">{t('courses.ti.aboutText2')}</p>
+              </div>
+            </section>
 
-            <Card>
-              <CardHeader>
-                <Users className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Modalidade</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Presencial</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Award className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Certificação</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Diploma Técnico</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 mb-12">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h2 className="text-3xl font-bold text-foreground mb-6">Sobre o Curso</h2>
-              <p className="text-muted-foreground mb-4">
-                O curso de Técnico de Informática prepara profissionais especializados na manutenção, reparação e suporte de sistemas informáticos.
-              </p>
-              <p className="text-muted-foreground mb-4">
-                Os formandos adquirem conhecimentos práticos essenciais para diagnosticar problemas em hardware e software, realizar manutenções preventivas e prestar assistência técnica qualificada.
-              </p>
-              <p className="text-muted-foreground">
-                A formação inclui práticas intensivas em laboratórios modernos, preparando os alunos para o mercado de trabalho em assistência técnica, lojas especializadas e departamentos de TI.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h2 className="text-3xl font-bold text-foreground mb-6">Módulos do Curso</h2>
-              <div className="space-y-3">
-                {modules.map((module, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">{module}</span>
+            {/* What you will learn */}
+            <section>
+              <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center">
+                <Cpu className="mr-3 h-6 w-6 text-primary" />
+                {t('courses.whatYouWillLearn')}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                  <div key={item} className="flex items-start p-4 bg-card rounded-lg border border-border shadow-sm">
+                    <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-0.5 shrink-0" />
+                    <span className="text-card-foreground">{t(`courses.ti.learn.item${item}`)}</span>
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </section>
+
+            {/* Professional Profile */}
+            <section>
+              <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center">
+                <Wrench className="mr-3 h-6 w-6 text-primary" />
+                {t('courses.careerOpportunities')}
+              </h2>
+              <div className="bg-muted/30 p-6 rounded-xl border border-border">
+                <ul className="space-y-3">
+                  {[1, 2, 3, 4, 5].map((item) => (
+                    <li key={item} className="flex items-center text-foreground">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      {t(`courses.ti.career.item${item}`)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mb-12"
-          >
-            <h2 className="text-3xl font-bold text-foreground mb-6">Competências Adquiridas</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {skills.map((skill, index) => (
-                <Card key={index} className="hover-elevate transition-all">
-                  <CardContent className="p-4">
-                    <p className="text-sm">{skill}</p>
-                  </CardContent>
-                </Card>
-              ))}
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm sticky top-6">
+              <h3 className="text-xl font-bold mb-4">{t('courses.details')}</h3>
+              <div className="space-y-4 mb-6">
+                <div className="flex justify-between border-b border-border pb-2">
+                  <span className="text-muted-foreground">{t('courses.duration')}:</span>
+                  <span className="font-medium">{t('courses.ti.durationValue')}</span>
+                </div>
+                <div className="flex justify-between border-b border-border pb-2">
+                  <span className="text-muted-foreground">{t('courses.certification')}:</span>
+                  <span className="font-medium">{t('courses.ti.certificationValue')}</span>
+                </div>
+                <div className="flex justify-between border-b border-border pb-2">
+                  <span className="text-muted-foreground">{t('courses.schedule')}:</span>
+                  <span className="font-medium">{t('courses.ti.scheduleValue')}</span>
+                </div>
+                <div className="flex justify-between border-b border-border pb-2">
+                  <span className="text-muted-foreground">{t('courses.internship')}:</span>
+                  <span className="font-medium">{t('courses.ti.internshipValue')}</span>
+                </div>
+              </div>
+              
+              <Link href="/admissoes">
+                <a className="w-full block text-center bg-primary text-primary-foreground hover:bg-primary/90 py-3 rounded-md font-medium transition-colors">
+                  {t('hero.enrollNow')}
+                </a>
+              </Link>
+              <p className="text-xs text-center text-muted-foreground mt-3">
+                {t('courses.limitedSlots')}
+              </p>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="bg-primary rounded-2xl p-8 md:p-12 text-center"
-          >
-            <h2 className="text-3xl font-bold text-primary-foreground mb-4">
-              Pronto para Começar?
-            </h2>
-            <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Inscreva-se agora e torne-se um técnico de informática qualificado.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary">
-                Inscrever-se Agora
-              </Button>
-              <Button size="lg" variant="outline" className="bg-transparent hover:bg-white/10 text-primary-foreground border-primary-foreground/30">
-                Baixar Brochura
-              </Button>
+            <div className="bg-muted p-6 rounded-xl border border-border">
+              <h3 className="font-bold mb-2 flex items-center">
+                <Monitor className="mr-2 h-5 w-5" />
+                {t('courses.labs')}
+              </h3>
+              <p className="text-sm text-muted-foreground">{t('courses.ti.labsText')}</p>
             </div>
-          </motion.div>
+          </div>
+
         </div>
-      </section>
-
+      </div>
+      </main>
       <Footer />
     </div>
   );

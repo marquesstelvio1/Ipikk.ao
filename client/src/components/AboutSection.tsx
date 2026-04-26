@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { GraduationCap, Users, Award, TrendingUp } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function AboutSection() {
+   const { t } = useLanguage();
   const stats = [
-    { icon: GraduationCap, value: '25+', label: 'Anos de Experiência' },
-    { icon: Users, value: '5000+', label: 'Estudantes Formados' },
-    { icon: Award, value: '15+', label: 'Cursos Oferecidos' },
-    { icon: TrendingUp, value: '95%', label: 'Taxa de Emprego' }
+    { icon: GraduationCap, value: '25+', label: t('about.years') },
+    { icon: Users, value: '5000+', label: t('about.students') },
+    { icon: Award, value: '15+', label: t('about.courses') },
+    { icon: TrendingUp, value: '95%', label: t('about.employment') }
   ];
 
   return (
@@ -21,16 +23,13 @@ export default function AboutSection() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6" data-testid="text-about-title">
-              Quem Somos?
+              {t('about.title')}
             </h2>
-            <p className="text-lg text-muted-foreground mb-4" data-testid="text-about-description">
-              O Instituto Politécnico Industrial de Kuanza-Norte (IPIKK) é uma instituição de referência em formação técnica e profissional em Angola. Oferecemos programas educacionais de alta qualidade que preparam os nossos estudantes para os desafios do mercado de trabalho moderno.
-            </p>
-            <p className="text-lg text-muted-foreground mb-6">
-              Com infraestruturas modernas, corpo docente qualificado e parcerias estratégicas com empresas líderes, garantimos uma formação completa e prática aos nossos alunos.
+            <p className="text-lg text-muted-foreground mb-6" data-testid="text-about-description">
+              {t('about.description')}
             </p>
             <Button size="lg" data-testid="button-about-saiba-mais">
-              Saiba Mais Sobre Nós
+              {t('about.moreAbout')}
             </Button>
           </motion.div>
 

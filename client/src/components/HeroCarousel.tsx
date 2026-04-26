@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 
-import campusImage from '@assets/generated_images/IPIKK_campus_exterior_view_fcd2e2ab.png';
-import electronicsImage from '@assets/generated_images/Electronics_lab_training_session_24a7937a.png';
-import computerImage from '@assets/generated_images/Computer_science_classroom_386533a1.png';
-import civilImage from '@assets/generated_images/Civil_engineering_workshop_c5c5038f.png';
-import graduationImage from '@assets/generated_images/Graduation_ceremony_celebration_47102841.png';
+import campusImage from './imgs/img1.jpg';
+import electronicsImage from './imgs/img2.jpg';
+import computerImage from './imgs/img3.jpg';
+import civilImage from './imgs/img4.jpg';
+import graduationImage from './imgs/img5.jpg';
 
 const images = [
   { src: campusImage, alt: 'Campus do IPIKK' },
@@ -28,14 +26,6 @@ export default function HeroCarousel() {
     return () => clearInterval(interval);
   }, []);
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
-
   return (
     <div className="relative w-full h-full overflow-hidden">
       <AnimatePresence mode="wait">
@@ -55,26 +45,6 @@ export default function HeroCarousel() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60" />
         </motion.div>
       </AnimatePresence>
-
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={goToPrevious}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white border-0"
-        data-testid="button-carousel-prev"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </Button>
-
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={goToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white border-0"
-        data-testid="button-carousel-next"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </Button>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
         {images.map((_, index) => (

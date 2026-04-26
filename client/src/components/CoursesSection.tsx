@@ -1,96 +1,80 @@
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Server, Monitor, Zap, Building2, Snowflake, Calculator, Compass, Hammer, Lightbulb, Car, Ruler, Briefcase } from 'lucide-react';
-
-const courses = [
-  {
-    icon: Server,
-    title: 'Gestão de Sistemas Informáticos',
-    description: 'Formação avançada em gestão e administração de sistemas de informação.',
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-500/10'
-  },
-  {
-    icon: Monitor,
-    title: 'Técnico de Informática',
-    description: 'Curso técnico completo em manutenção e reparação de equipamentos informáticos.',
-    color: 'text-cyan-500',
-    bgColor: 'bg-cyan-500/10'
-  },
-  {
-    icon: Zap,
-    title: 'Energias e Instalações Elétricas',
-    description: 'Formação em instalação, manutenção e reparação de sistemas elétricos.',
-    color: 'text-yellow-500',
-    bgColor: 'bg-yellow-500/10'
-  },
-  {
-    icon: Building2,
-    title: 'Técnico de Obras de Construção Civil',
-    description: 'Preparação para trabalhar em projetos de construção e obras civis.',
-    color: 'text-orange-500',
-    bgColor: 'bg-orange-500/10'
-  },
-  {
-    icon: Snowflake,
-    title: 'Frio e Climatização',
-    description: 'Especialização em sistemas de refrigeração e ar condicionado.',
-    color: 'text-teal-500',
-    bgColor: 'bg-teal-500/10'
-  },
-  {
-    icon: Calculator,
-    title: 'Contabilidade',
-    description: 'Formação em contabilidade empresarial e gestão financeira.',
-    color: 'text-green-500',
-    bgColor: 'bg-green-500/10'
-  },
-  {
-    icon: Compass,
-    title: 'Desenhador Projectista',
-    description: 'Formação em desenho técnico e elaboração de projetos de engenharia.',
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-500/10'
-  },
-  {
-    icon: Hammer,
-    title: 'Técnico em Tecnologias de Móveis',
-    description: 'Especialização em design, fabrico e acabamento de mobiliário.',
-    color: 'text-amber-500',
-    bgColor: 'bg-amber-500/10'
-  },
-  {
-    icon: Lightbulb,
-    title: 'Eletrónica Industrial',
-    description: 'Formação em sistemas eletrónicos aplicados à indústria.',
-    color: 'text-indigo-500',
-    bgColor: 'bg-indigo-500/10'
-  },
-  {
-    icon: Car,
-    title: 'Mecânica Automóvel',
-    description: 'Curso completo em manutenção e reparação de veículos automóveis.',
-    color: 'text-red-500',
-    bgColor: 'bg-red-500/10'
-  },
-  {
-    icon: Ruler,
-    title: 'Topografia',
-    description: 'Formação em levantamento topográfico e geodésico de terrenos.',
-    color: 'text-lime-500',
-    bgColor: 'bg-lime-500/10'
-  },
-  {
-    icon: Briefcase,
-    title: 'Gestão de Empresas',
-    description: 'Preparação para administração e gestão estratégica empresarial.',
-    color: 'text-rose-500',
-    bgColor: 'bg-rose-500/10'
-  }
-];
+import { buttonVariants } from '@/components/ui/button';
+import { Server, Monitor, Zap, Building2, Snowflake, Calculator, Compass, Hammer, Lightbulb, Car, Ruler, Briefcase, Home } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Link } from 'wouter';
 
 export default function CoursesSection() {
+  const { t } = useLanguage();
+  
+  const courses = [
+    {
+      icon: Server,
+      title: t('courses.gsi.title'),
+      description: t('courses.gsi.desc'),
+      link: '/cursos/gestao-sistemas-informaticos',
+      color: 'text-blue-500',
+      bgColor: 'bg-blue-500/10'
+    },
+    {
+      icon: Monitor,
+      title: t('courses.ti.title'),
+      description: t('courses.ti.desc'),
+      link: '/cursos/tecnico-informatica',
+      color: 'text-cyan-500',
+      bgColor: 'bg-cyan-500/10'
+    },
+    {
+      icon: Zap,
+      title: t('courses.eie.title'),
+      description: t('courses.eie.desc'),
+      link: '/cursos/energias-electricas',
+      color: 'text-yellow-500',
+      bgColor: 'bg-yellow-500/10'
+    },
+    {
+      icon: Building2,
+      title: t('courses.tocc.title'),
+      description: t('courses.tocc.desc'),
+      link: '/cursos/construcao-civil',
+      color: 'text-orange-500',
+      bgColor: 'bg-orange-500/10'
+    },
+    {
+      icon: Snowflake,
+      title: t('courses.fc.title'),
+      description: t('courses.fc.desc'),
+      link: '/cursos/frio-climatizacao',
+      color: 'text-teal-500',
+      bgColor: 'bg-teal-500/10'
+    },
+    {
+      icon: Compass,
+      title: t('courses.dp.title'),
+      description: t('courses.dp.desc'),
+      link: '/cursos/desenhador-projectista',
+      color: 'text-purple-500',
+      bgColor: 'bg-purple-500/10'
+    },
+    {
+      icon: Home,
+      title: t('courses.tim.title'),
+      description: t('courses.tim.desc'),
+      link: '/cursos/tecnologia-imoveis',
+      color: 'text-indigo-500',
+      bgColor: 'bg-indigo-500/10'
+    },
+    {
+      icon: Hammer,
+      title: t('courses.ttm.title'),
+      description: t('courses.ttm.desc'),
+      link: '/cursos/tecnologias-moveis',
+      color: 'text-amber-500',
+      bgColor: 'bg-amber-500/10'
+    }
+  ];
+
   return (
     <section id="cursos" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -102,10 +86,10 @@ export default function CoursesSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="text-courses-title">
-            Cursos Ministrados
+            {t('courses.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="text-courses-subtitle">
-            Oferecemos uma ampla variedade de cursos técnicos e profissionais para preparar você para o mercado de trabalho.
+            {t('courses.subtitle')}
           </p>
         </motion.div>
 
@@ -129,26 +113,14 @@ export default function CoursesSection() {
                   <CardDescription className="text-base mb-4" data-testid={`text-course-description-${index}`}>
                     {course.description}
                   </CardDescription>
-                  <Button variant="outline" className="w-full" data-testid={`button-course-saiba-mais-${index}`}>
-                    Saiba Mais
-                  </Button>
+                  <Link href={course.link} className={buttonVariants({ variant: 'outline', className: 'w-full' })} data-testid={`button-course-saiba-mais-${index}`}>
+                      {t('courses.learnMore')}
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
-        >
-          <Button size="lg" data-testid="button-courses-ver-todos">
-            Ver Todos os Cursos
-          </Button>
-        </motion.div>
       </div>
     </section>
   );

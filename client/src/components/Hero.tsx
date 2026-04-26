@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import HeroCarousel from './HeroCarousel';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Link } from 'wouter';
 
 export default function Hero() {
+   const { t } = useLanguage();
   return (
     <section id="inicio" className="relative h-[85vh] min-h-[600px] overflow-hidden">
       <HeroCarousel />
@@ -16,7 +19,7 @@ export default function Hero() {
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6"
             data-testid="text-hero-title"
           >
-            Construa o Seu Futuro com Formação de Excelência
+            {t('hero.title')}
           </motion.h1>
           
           <motion.p
@@ -26,8 +29,8 @@ export default function Hero() {
             className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto"
             data-testid="text-hero-subtitle"
           >
-            Instituto Politécnico Industrial de Kuanza-Norte oferece formação técnica e profissional de qualidade em diversas áreas.
-          </motion.p>
+            {t('hero.subtitle')}
+            </motion.p>
           
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -35,12 +38,20 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button size="lg" className="text-base" data-testid="button-hero-inscrever">
-              Inscreva-se Agora
-            </Button>
-            <Button size="lg" variant="outline" className="text-base bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-white/30" data-testid="button-hero-saiba-mais">
-              Saiba Mais
-            </Button>
+            <Link href="/admissoes">
+              <a className="inline-block">
+                <Button size="lg" className="text-base w-full sm:w-auto" data-testid="button-hero-inscrever">
+                  {t('hero.enrollNow')}
+                </Button>
+              </a>
+            </Link>
+            <Link href="/sobre">
+              <a className="inline-block">
+                <Button size="lg" variant="outline" className="text-base bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-white/30 w-full sm:w-auto" data-testid="button-hero-saiba-mais">
+                  {t('hero.learnMore')}
+                </Button>
+              </a>
+            </Link>
           </motion.div>
         </div>
       </div>

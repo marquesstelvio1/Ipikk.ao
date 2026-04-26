@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Link } from 'wouter';
 
 export default function EnrollmentCTA() {
+  const { t } = useLanguage();
   const benefits = [
-    'Infraestruturas modernas e equipadas',
-    'Corpo docente qualificado e experiente',
-    'Parcerias com empresas líderes',
-    'Formação prática e teórica de qualidade'
+    t('enrollment.benefits.infrastructure'),
+    t('enrollment.benefits.faculty'),
+    t('enrollment.benefits.partnerships'),
+    t('enrollment.benefits.training')
   ];
 
   return (
@@ -24,10 +27,10 @@ export default function EnrollmentCTA() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-6" data-testid="text-enrollment-title">
-              Faça sua Matrícula no IPIKK
+              {t('enrollment.title')}
             </h2>
             <p className="text-lg text-primary-foreground/90 mb-8" data-testid="text-enrollment-subtitle">
-              Junte-se a nós e usufrua do que temos a oferecer para a sua capacitação e desenvolvimento profissional.
+              {t('enrollment.subtitle')}
             </p>
             <div className="space-y-3 mb-8">
               {benefits.map((benefit, index) => (
@@ -46,13 +49,19 @@ export default function EnrollmentCTA() {
               ))}
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" variant="secondary" className="text-base" data-testid="button-enrollment-inscrever">
-                Inscrever-se Agora
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button size="lg" variant="outline" className="text-base bg-transparent hover:bg-white/10 text-primary-foreground border-primary-foreground/30" data-testid="button-enrollment-informacoes">
-                Mais Informações
-              </Button>
+              <Link href="/admissoes">
+                <a className="inline-block">
+                  <Button size="lg" variant="secondary" className="text-base w-full" data-testid="button-enrollment-inscrever">
+                    {t('enrollment.enrollNow')}
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </a>
+              </Link>
+              <a href="/contato" className="inline-block">
+                <Button size="lg" variant="outline" className="text-base bg-transparent hover:bg-white/10 text-primary-foreground border-primary-foreground/30 w-full" data-testid="button-enrollment-informacoes">
+                  {t('enrollment.moreInfo')}
+                </Button>
+              </a>
             </div>
           </motion.div>
 
@@ -66,23 +75,23 @@ export default function EnrollmentCTA() {
             <div className="relative">
               <div className="absolute inset-0 bg-primary-foreground/10 rounded-2xl transform rotate-3" />
               <div className="relative bg-primary-foreground/5 backdrop-blur-sm rounded-2xl p-8 border border-primary-foreground/20">
-                <h3 className="text-2xl font-bold text-primary-foreground mb-4">Processo de Matrícula</h3>
+                <h3 className="text-2xl font-bold text-primary-foreground mb-4">{t('enrollment.process.title')}</h3>
                 <ol className="space-y-4 text-primary-foreground/90">
                   <li className="flex gap-3">
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-foreground/20 flex items-center justify-center font-bold">1</span>
-                    <span>Preencha o formulário de pré-inscrição online</span>
+                    <span>{t('enrollment.process.step1')}</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-foreground/20 flex items-center justify-center font-bold">2</span>
-                    <span>Entregue os documentos necessários</span>
+                    <span>{t('enrollment.process.step2')}</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-foreground/20 flex items-center justify-center font-bold">3</span>
-                    <span>Realize o pagamento da inscrição</span>
+                    <span>{t('enrollment.process.step3')}</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-foreground/20 flex items-center justify-center font-bold">4</span>
-                    <span>Receba a confirmação e comece suas aulas</span>
+                    <span>{t('enrollment.process.step4')}</span>
                   </li>
                 </ol>
               </div>

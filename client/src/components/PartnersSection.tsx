@@ -1,122 +1,99 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const partners = [
-  { name: 'Prodel-EP', description: 'Parceiro em desenvolvimento tecnológico' },
-  { name: 'Grupo Boa Vida', description: 'Apoio em recursos e formação' },
-  { name: 'ENDE-EP', description: 'Parceria em energia e desenvolvimento' },
-  { name: 'ITEL', description: 'Instituto de Telecomunicações de Angola' },
-  { name: 'Fadcom', description: 'Parceiro em comunicações' },
-  { name: 'BHM Softwares', description: 'Desenvolvimento de software' }
-];
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Card } from '@/components/ui/card';
+import { Handshake } from 'lucide-react';
+import proedel from '@/components/imgs/p3.png';
+import boavida from '@/components/imgs/p1.png';
+import ende from '@/components/imgs/p6.png';
+import itl from '@/components/imgs/p4.png';
+import fadcom from '@/components/imgs/p8.png';
+import bhm from '@/components/imgs/p7.jpg';
+import ngola from '@/components/imgs/p5.png';
 
 export default function PartnersSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 3;
+  const { t } = useLanguage();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % Math.ceil(partners.length / itemsPerPage));
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const visiblePartners = partners.slice(
-    currentIndex * itemsPerPage,
-    (currentIndex + 1) * itemsPerPage
-  );
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => 
-      prev === 0 ? Math.ceil(partners.length / itemsPerPage) - 1 : prev - 1
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % Math.ceil(partners.length / itemsPerPage));
-  };
+  const partners = [
+    { name: 'Prodel-EP', logo: proedel, link: 'https://www.prodel.co.ao/' },
+    { name: 'Grupo Boa Vida', logo: boavida, link: 'https://grupoboavida.co.ao/' },
+    { name: 'ENDE-EP', logo: ende, link: '#' },
+    { name: 'ITEL', logo: itl, link: 'https://www.itel.gov.ao/' },
+    { name: 'Fadcom', logo: fadcom, link: 'https://fadcom.gov.ao/' },
+    { name: 'BHM Softwares', logo: bhm, link: '#' },
+    { name: 'N\'gola Digital', logo: ngola, link: '#' }
+  ];
 
   return (
-    <section className="py-20 bg-card">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-24 bg-gradient-to-br from-primary/5 via-background to-primary/5 overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="text-partners-title">
-            Parceiros
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-6">
+            <Handshake className="w-10 h-10 text-primary" />
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="text-partners-title">
+            {t('partners.title')}
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="text-partners-subtitle">
-            Trabalhamos com organizações líderes para proporcionar as melhores oportunidades aos nossos estudantes.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed" data-testid="text-partners-subtitle">
+            {t('partners.subtitle')}
           </p>
         </motion.div>
 
-        <div className="relative">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {visiblePartners.map((partner, index) => (
-              <motion.div
-                key={`${currentIndex}-${index}`}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 lg:gap-8">
+          {partners.map((partner, index) => (
+            <motion.div
+              key={partner.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <a
+                href={partner.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-full group"
+                aria-label={`${t('partners.visit') || 'Visitar'} ${partner.name}`}
               >
-                <Card className="h-full hover-elevate transition-all bg-background" data-testid={`card-partner-${index}`}>
-                  <CardContent className="p-8 text-center">
-                    <div className="w-24 h-24 bg-muted rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <div className="text-2xl font-bold text-primary">{partner.name.slice(0, 2)}</div>
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2" data-testid={`text-partner-name-${index}`}>
-                      {partner.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground" data-testid={`text-partner-description-${index}`}>
-                      {partner.description}
-                    </p>
-                  </CardContent>
+                <Card className="h-full p-6 flex items-center justify-center bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-2 group">
+                  <div className="relative w-full h-20 flex items-center justify-center">
+                    <img
+                      className="max-h-16 w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"
+                      src={partner.logo}
+                      alt={partner.name}
+                      width={158}
+                      height={48}
+                    />
+                  </div>
                 </Card>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="flex justify-center items-center gap-4 mt-8">
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={goToPrevious}
-              data-testid="button-partners-prev"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
-
-            <div className="flex gap-2">
-              {Array.from({ length: Math.ceil(partners.length / itemsPerPage) }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentIndex ? 'bg-primary w-8' : 'bg-muted'
-                  }`}
-                  data-testid={`button-partners-indicator-${index}`}
-                />
-              ))}
-            </div>
-
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={goToNext}
-              data-testid="button-partners-next"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-          </div>
+              </a>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Additional decorative element */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-16 text-center"
+        >
+          <p className="text-sm text-muted-foreground italic">
+            {t('partners.footer') || 'Parceiros estratégicos comprometidos com a excelência educacional'}
+          </p>
+        </motion.div>
       </div>
     </section>
   );

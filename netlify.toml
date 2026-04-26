@@ -1,0 +1,11 @@
+[build]
+  # Se o seu frontend estiver dentro da pasta client
+  base = "client"
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  # Garante que as rotas do React/Wouter funcionem no Netlify
+  from = "/*"
+  to = "/index.html"
+  status = 200

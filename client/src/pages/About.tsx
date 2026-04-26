@@ -3,44 +3,48 @@ import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { Award, Target, Eye, Users, BookOpen, Briefcase, TrendingUp, Heart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useLanguage } from '@/contexts/LanguageContext';
+import campus from '@/components/imgs/img3.jpg'
 
 export default function About() {
+  const { t } = useLanguage();
+
   const values = [
     {
       icon: Award,
-      title: 'Excelência',
-      description: 'Comprometidos com a qualidade e excelência na formação técnica e profissional.',
+      title: t('aboutPage.values.excellence.title'),
+      description: t('aboutPage.values.excellence.description'),
       color: 'text-blue-500',
       bgColor: 'bg-blue-500/10'
     },
     {
       icon: Heart,
-      title: 'Compromisso',
-      description: 'Dedicação total ao desenvolvimento educacional e profissional dos nossos estudantes.',
+      title: t('aboutPage.values.commitment.title'),
+      description: t('aboutPage.values.commitment.description'),
       color: 'text-red-500',
       bgColor: 'bg-red-500/10'
     },
     {
       icon: Users,
-      title: 'Inclusão',
-      description: 'Promovemos um ambiente inclusivo e acolhedor para todos os nossos alunos.',
+      title: t('aboutPage.values.inclusion.title'),
+      description: t('aboutPage.values.inclusion.description'),
       color: 'text-green-500',
       bgColor: 'bg-green-500/10'
     },
     {
       icon: Briefcase,
-      title: 'Empregabilidade',
-      description: 'Focados em preparar profissionais prontos para o mercado de trabalho.',
+      title: t('aboutPage.values.employability.title'),
+      description: t('aboutPage.values.employability.description'),
       color: 'text-orange-500',
       bgColor: 'bg-orange-500/10'
     }
   ];
 
   const achievements = [
-    { number: '25+', label: 'Anos de Experiência', icon: BookOpen },
-    { number: '5000+', label: 'Alunos Formados', icon: Users },
-    { number: '15+', label: 'Cursos Oferecidos', icon: Award },
-    { number: '95%', label: 'Taxa de Emprego', icon: TrendingUp }
+    { number: '25+', label: t('aboutPage.achievements.experience'), icon: BookOpen },
+    { number: '5000+', label: t('aboutPage.achievements.graduates'), icon: Users },
+    { number: '15+', label: t('aboutPage.achievements.courses'), icon: Award },
+    { number: '95%', label: t('aboutPage.achievements.employment'), icon: TrendingUp }
   ];
 
   return (
@@ -56,10 +60,10 @@ export default function About() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="text-about-hero-title">
-              Sobre o IPIKK
+              {t('aboutPage.hero.title')}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto" data-testid="text-about-hero-subtitle">
-              Instituto Politécnico Industrial de Kuanza-Norte - Formando profissionais de excelência desde 1999
+              {t('aboutPage.hero.subtitle')}
             </p>
           </motion.div>
 
@@ -71,7 +75,7 @@ export default function About() {
             >
               <div className="relative h-96 rounded-2xl overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop"
+                  src={campus}
                   alt="Campus IPIKK"
                   className="w-full h-full object-cover"
                 />
@@ -85,17 +89,17 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 className="text-3xl font-bold text-foreground mb-6" data-testid="text-historia-title">
-                Nossa História
+                {t('aboutPage.history.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  O Instituto Politécnico Industrial de Kuanza-Norte (IPIKK) foi fundado em 1999 com a missão de proporcionar formação técnica e profissional de qualidade à juventude angolana.
+                  {t('aboutPage.history.p1')}
                 </p>
                 <p>
-                  Ao longo de mais de duas décadas, temos sido uma referência em educação técnica, formando milhares de profissionais qualificados que contribuem significativamente para o desenvolvimento económico e social de Angola.
+                  {t('aboutPage.history.p2')}
                 </p>
                 <p>
-                  Com infraestruturas modernas, laboratórios equipados e um corpo docente altamente qualificado, o IPIKK continua a sua missão de formar profissionais competentes e preparados para os desafios do mercado de trabalho atual.
+                  {t('aboutPage.history.p3')}
                 </p>
               </div>
             </motion.div>
@@ -112,11 +116,11 @@ export default function About() {
                   <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                     <Target className="w-7 h-7 text-primary" />
                   </div>
-                  <CardTitle className="text-2xl" data-testid="text-missao-title">Missão</CardTitle>
+                  <CardTitle className="text-2xl" data-testid="text-missao-title">{t('aboutPage.mission.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Proporcionar formação técnica e profissional de excelência, preparando jovens para serem profissionais competentes, éticos e comprometidos com o desenvolvimento sustentável de Angola e da sociedade global.
+                    {t('aboutPage.mission.description')}
                   </p>
                 </CardContent>
               </Card>
@@ -132,11 +136,11 @@ export default function About() {
                   <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                     <Eye className="w-7 h-7 text-primary" />
                   </div>
-                  <CardTitle className="text-2xl" data-testid="text-visao-title">Visão</CardTitle>
+                  <CardTitle className="text-2xl" data-testid="text-visao-title">{t('aboutPage.vision.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Ser uma instituição de referência em formação técnica e profissional em Angola, reconhecida pela qualidade do ensino, inovação pedagógica e pela contribuição para o desenvolvimento socioeconómico do país.
+                    {t('aboutPage.vision.description')}
                   </p>
                 </CardContent>
               </Card>
@@ -150,7 +154,7 @@ export default function About() {
             className="mb-20"
           >
             <h2 className="text-3xl font-bold text-foreground text-center mb-12" data-testid="text-valores-title">
-              Nossos Valores
+              {t('aboutPage.values.title')}
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((value, index) => (
@@ -183,7 +187,7 @@ export default function About() {
             className="bg-primary rounded-2xl p-8 md:p-12"
           >
             <h2 className="text-3xl font-bold text-primary-foreground text-center mb-12" data-testid="text-conquistas-title">
-              Nossos Números
+              {t('aboutPage.achievements.title')}
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {achievements.map((achievement, index) => (

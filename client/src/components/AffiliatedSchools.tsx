@@ -3,71 +3,39 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, MapPin, Phone, Mail, GraduationCap } from 'lucide-react';
-
-const schools = [
-  {
-    name: 'Instituto Politécnico Privado "Ndombwa"',
-    location: 'Luanda, Angola',
-    phone: '(+244) 923 456 789',
-    email: 'ndombwa@ipikk.ao'
-  },
-  {
-    name: 'Instituto Politécnico Privado "Bondo Matuatunguila"',
-    location: 'Nova-Vida – Rua 40-Casa 41',
-    phone: '(+244) 928 497 433',
-    email: 'ippbmatuatunguila@hotmail.com'
-  },
-  {
-    name: 'Instituto Politécnico Privado "Pedro Nelson"',
-    location: 'Talatona – Bairro 4 de Abril',
-    phone: '(+244) 925 678 901',
-    email: 'pedronelson@ipikk.ao'
-  },
-  {
-    name: 'Instituto Politécnico Privado "Professora Maria Osvalda"',
-    location: 'Benfica-Rua das Salinas',
-    phone: '(+244) 949 766 444',
-    email: 'mariaosvalda@ipikk.ao'
-  },
-  {
-    name: 'Instituto Politécnico Privado "A.J.Nicolau"',
-    location: 'Benfica – Rua Dona Xepa-Girafa',
-    phone: '(+244) 929 431 259',
-    email: 'ajnicolau@ipikk.ao'
-  },
-  {
-    name: 'Instituto Médio Politécnico "Maria Luisa"',
-    location: 'Viana – Estalagem – Rua da Sofogor',
-    phone: '(+244) 993 338 493',
-    email: 'marialuisa@ipikk.ao'
-  }
-];
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Link } from 'wouter';
+import { affiliatedSchools } from '@/lib/affiliatedSchools';
 
 export default function AffiliatedSchools() {
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const itemsPerPage = 3;
 
   useEffect(() => {
+    if (isPaused) return;
+    
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % Math.ceil(schools.length / itemsPerPage));
+      setCurrentIndex((prev) => (prev + 1) % Math.ceil(affiliatedSchools.length / itemsPerPage));
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused, itemsPerPage]);
 
-  const visibleSchools = schools.slice(
+  const visibleSchools = affiliatedSchools.slice(
     currentIndex * itemsPerPage,
     (currentIndex + 1) * itemsPerPage
   );
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => 
-      prev === 0 ? Math.ceil(schools.length / itemsPerPage) - 1 : prev - 1
+      prev === 0 ? Math.ceil(affiliatedSchools.length / itemsPerPage) - 1 : prev - 1
     );
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % Math.ceil(schools.length / itemsPerPage));
+    setCurrentIndex((prev) => (prev + 1) % Math.ceil(affiliatedSchools.length / itemsPerPage));
   };
 
   return (
@@ -81,18 +49,24 @@ export default function AffiliatedSchools() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="text-schools-title">
-            Escolas Filiadas
+            {t('affiliated.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="text-schools-subtitle">
-            Rede de instituições parceiras que compartilham nossa missão de excelência educacional.
+            {t('affiliated.subtitle')}
           </p>
         </motion.div>
 
-        <div className="relative">
+        <div 
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
+        >
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleSchools.map((school, index) => (
               <motion.div
-                key={`${currentIndex}-${index}`}
+                key={school.id}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -123,18 +97,19 @@ export default function AffiliatedSchools() {
             ))}
           </div>
 
-          <div className="flex justify-center items-center gap-4 mt-8">
+          <div className="flex justify-center items-center gap-4 mt-8" role="group" aria-label={t('affiliated.carouselControls') || 'Controles do carrossel'}>
             <Button
               size="icon"
               variant="outline"
               onClick={goToPrevious}
               data-testid="button-schools-prev"
+              aria-label={t('affiliated.previous') || 'Anterior'}
             >
               <ChevronLeft className="w-5 h-5" />
             </Button>
 
-            <div className="flex gap-2">
-              {Array.from({ length: Math.ceil(schools.length / itemsPerPage) }).map((_, index) => (
+            <div className="flex gap-2" role="tablist" aria-label={t('affiliated.slideIndicators') || 'Indicadores de slides'}>
+              {Array.from({ length: Math.ceil(affiliatedSchools.length / itemsPerPage) }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
@@ -142,6 +117,10 @@ export default function AffiliatedSchools() {
                     index === currentIndex ? 'bg-primary w-8' : 'bg-muted'
                   }`}
                   data-testid={`button-schools-indicator-${index}`}
+                  role="tab"
+                  aria-selected={index === currentIndex}
+                  aria-label={`${t('affiliated.goToSlide') || 'Ir para slide'} ${index + 1}`}
+                  tabIndex={index === currentIndex ? 0 : -1}
                 />
               ))}
             </div>
@@ -151,6 +130,7 @@ export default function AffiliatedSchools() {
               variant="outline"
               onClick={goToNext}
               data-testid="button-schools-next"
+              aria-label={t('affiliated.next') || 'Próximo'}
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
@@ -164,9 +144,16 @@ export default function AffiliatedSchools() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <Button size="lg" variant="outline" data-testid="button-schools-ver-mais">
-            Ver Todas as Escolas
+          <Link href="/escolas-filiadas">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              data-testid="button-schools-ver-mais"
+              aria-label={t('affiliated.viewAll') || 'Ver todas as escolas filiadas'}
+            >
+            {t('affiliated.viewAll')}
           </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
